@@ -23,8 +23,6 @@ function findSavingBanks(id, typeCurrency) {
     return associatesSavingBanks
 }
 
-//En caso de que no funncione mandarle 3 fors
-
 function findDebitCards(id) {
     let associatesDebitCards = []
     for (let i = 0; i < clients.length; i++) {
@@ -39,7 +37,7 @@ function findDebitCards(id) {
     return associatesDebitCards
 }
 
-function findDebitCardByIdCard(id){
+function findDebitCardByIdCard(id) {
     for (let i = 0; i < clients.length; i++) {
         for (let j = 0; j < clients[i].savingBanks.length; j++) {
             for (let k = 0; k < clients[i].savingBanks[j].debitCards.length; k++) {
@@ -55,20 +53,55 @@ function findCreditCards(id) {
     let associatesCreditCards = []
     for (let i = 0; i < clients.length; i++) {
         for (let j = 0; j < clients[i].creditCards.length; j++) {
-            if(clients[i].creditCards[j] == id){
+            if (clients[i].creditCards[j].id == id) {
                 associatesCreditCards.push(clients[i].creditCards[j])
             }
         }
     }
-    return associatesDebitCards
+    return associatesCreditCards
 }
 
-function findCreditCardByIdCard(id){
-for (let i = 0; i < clients.length; i++) {
+function findCreditCardByIdCard(id) {
+    for (let i = 0; i < clients.length; i++) {
         for (let j = 0; j < clients[i].creditCards.length; j++) {
-            if(clients[i].creditCards[j].id == id){
+            if (clients[i].creditCards[j].id == id) {
                 return clients[i].creditCards[j]
             }
         }
     }
+}
+
+function findMovementsInSpecificSavingBank(id) {
+    for (let i = 0; i < clients.length; i++) {
+        for (let j = 0; j < clients[i].savingBanks.length; j++) {
+            if (clients[i].savingBanks[j].id == id) {
+                return clients[i].savingBanks[j].movements
+            }
+        }
+    }
+}
+
+function findMovementsInSpecificDebitCard(id) {
+    for (let i = 0; i < clients.length; i++) {
+        for (let j = 0; j < clients[i].savingBanks.length; j++) {
+            for (let k = 0; k < clients[i].savingBanks[j].debitCards.length; k++) {
+                if (clients[i].savingBanks[j].debitCards[k].id == id){
+                    return clients[i].savingBanks[j].debitCards[k].historyConsumption
+                }
+            }
+        }
+    }
+    return -1;
+}
+
+
+function findMovementsInSpecificCreditCard(id) {
+    for (let i = 0; i < clients.length; i++) {
+        for (let j = 0; j < clients[i].creditCards.length; j++) {
+            if (clients[i].creditCards[j].id == id) {
+                return clients[i].creditCards[j].historyConsumption
+            }
+        }
+    }
+    return -1;
 }
