@@ -1,5 +1,6 @@
 let savingBanksId = 1
 let cbu = 1
+const Valor_del_dolar= 1100
 class SavingBanks {
     constructor(currency, uncoveredLimit, alias) {
         this.id = savingBanksId
@@ -40,16 +41,28 @@ class SavingBanks {
         }
     }
 
-    addBalance(amount) {
+    addBalanceArs(amount) {
         if (this.currency == "ARS") {
-            if(this.overdraft > 0 ){
+            if (amount > this.overdraft) {
+                amount = amount - this.overdraft
+                this.balance = this.balance + amount
+                return this.balance
+            }
+            else if (this.overdraft >= amount){
                 this.overdraft = this.overdraft - amount
+                return this.balance
             }
-            else{
-                
-            }
-    
+
         }
+        else if(this.currency = "USD"){
+            this.balance = this.balance + amount
+            return this.balance
+        }
+        return -1
+    }
+
+    buySellDollars(amount, idSavingBanksBuy, idSavingBanksSell){
+ 
     }
 }
 clients[0].savingBanks.push(new SavingBanks("ARS", 1000, "mmalkineki"))
