@@ -7,8 +7,8 @@ class SavingBanks {
         this.currency = currency;
         this.balance = 0;
         if (currency == "ARS") {
-            this.uncoveredLimit = uncoveredLimit;
-            this.overdraft = 10000;
+            this.uncoveredLimit = uncoveredLimit;  //LIMITE
+            this.overdraft = 0;                    //LO QUE VA GASTANDO
         }
         this.debitCards = [];
         this.movements = [];
@@ -16,27 +16,42 @@ class SavingBanks {
         this.cbu = cbu
         cbu++
     }
-    moneyMovements(amount) {
-        if (this.currency = "USD") {
+    extractBalance(amount) {
+        let availableUncoveredMoney = this.uncoveredLimit - this.overdraft
+        if (this.currency == "USD") {
             if (amount > this.balance) {
                 return false
             } else if (amount <= this.balance) {
+                this.balance = this.balance - amount
                 return true
             }
-        } else if (this.currency = "ARS") {
+        } else if (this.currency == "ARS") {
             if (amount <= this.balance) {
+                this.balance = this.balance - amount
                 return true
-            } else if (amount < this.balance + this.overdraft){
-                let gasto = this.balance + this.overdraft - amount
-                this.uncoveredLimit = gasto
+            } else if (amount <= this.balance + availableUncoveredMoney && availableUncoveredMoney >= 0) {
+                let gasto = amount - this.balance
+                this.balance = 0
+                this.overdraft = this.overdraft + gasto
                 return true
-            }else{
+            } else {
                 return false
             }
         }
     }
-}
 
+    addBalance(amount) {
+        if (this.currency == "ARS") {
+            if(this.overdraft > 0 ){
+                this.overdraft = this.overdraft - amount
+            }
+            else{
+                
+            }
+    
+        }
+    }
+}
 clients[0].savingBanks.push(new SavingBanks("ARS", 1000, "mmalkineki"))
 clients[0].savingBanks.push(new SavingBanks("USD", 0, "mmalkineki2"))
 clients[1].savingBanks.push(new SavingBanks("ARS", 5000, "jlcasanova"))
