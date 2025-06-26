@@ -2,8 +2,8 @@ let idCreditCard = 1
 let idDebitCard = 1
 let numberCard = 1000000000000000 //Esta variable tambien se aplica para las credit cards
 
-class DebitCard{
-    constructor(provider, securityNumber, nameUser){
+class DebitCard {
+    constructor(provider, securityNumber, nameUser) {
         this.id = idDebitCard
         idDebitCard++
         this.number = numberCard;
@@ -13,7 +13,36 @@ class DebitCard{
         this.expireDate = dateNow.setFullYear(dateNow.getFullYear() + 5);
         this.securityNumber = securityNumber;
         this.nameUser = nameUser
-        this.historyConsumption = []
+        this.movements = []
+    }
+    registerMovements(thirdPartyName, amount) {
+        if (this.expireDate >= new Date()) {
+            alert("No puedes hacer esta transacción la tarjeta está vencida")
+        } else {
+            if (amount > 0) {
+                let debitCardNumber = this.id
+                for (let i = 0; clients.length; i++) {
+                    for (let j = 0; clients[i].savingBanks.length; j++) {
+                        for (k = 0; clients[i].savingBanks[j].debitCards.length; k++) {
+                            if (clients[i].savingBanks[j].debitCards[k].id == debitCardNumber) {
+                                clients[i].savingBanks[j].addBalance(amount)
+                            }
+                        }
+                    }
+                }
+            }else if (amount < 0){
+                let debitCardNumber = this.id
+                for (let i = 0; clients.length; i++) {
+                    for (let j = 0; clients[i].savingBanks.length; j++) {
+                        for (k = 0; clients[i].savingBanks[j].debitCards.length; k++) {
+                            if (clients[i].savingBanks[j].debitCards[k].id == debitCardNumber) {
+                                clients[i].savingBanks[j].addBalance(-amount)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 /* 
@@ -33,7 +62,7 @@ class CreditCard {
         this.expireDate = dateNow.setFullYear(dateNow.getFullYear() + 5);
         this.securityNumber = securityNumber;
         this.nameUser = nameUser;
-        this.historyConsumption = [];
+        this.movements = [];
         this.balance = 0;
         //si paga menos de loque debe le rompemos el ojete con el interés
         // /Si solo pagaron totales = balance * interes (1) = balance

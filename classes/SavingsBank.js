@@ -46,17 +46,28 @@ class SavingBanks {
                 this.balance = this.balance + amount
                 return this.balance
             }
-            else if (this.overdraft >= amount){
+            else if (this.overdraft >= amount) {
                 this.overdraft = this.overdraft - amount
                 return this.balance
             }
 
         }
-        else if(this.currency = "USD"){
+        else if (this.currency = "USD") {
             this.balance = this.balance + amount
             return this.balance
         }
         return -1
+    }
+    registerMovements(thirdPartyName, amount, cuotes) {
+        if (amount > 0){
+            this.movements.push(new Movement(thirdPartyName, amount))
+            this.addBalance(amount)
+        }else if(amount < 0){
+            this.movements.push(new Movement(thirdPartyName, amount))
+            this.extractBalance(-amount)
+        }else{
+            alert("La transacción no se pudo hacer")
+        }
     }
 }
 clients[0].savingBanks.push(new SavingBanks("ARS", 1000, "mmalkineki"))
