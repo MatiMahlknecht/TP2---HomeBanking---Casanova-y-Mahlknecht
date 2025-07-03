@@ -58,17 +58,27 @@ class SavingBanks {
         }
         return -1
     }
-    registerMovements(thirdPartyName, amount, cuotes) {
-        if (amount > 0){
-            this.movements.push(new Movement(thirdPartyName, amount))
-            this.addBalance(amount)
-        }else if(amount < 0){
-            this.movements.push(new Movement(thirdPartyName, amount))
-            this.extractBalance(-amount)
-        }else{
-            alert("La transacción no se pudo hacer")
-        }
-    }
+    // registerMovements(thirdPartyName, amount) {
+    //     if (amount === 0) {
+    //         alert("La transacción no se pudo hacer");
+    //         return false;
+    //     }
+    //     if (amount > 0) {
+    //         this.movements.push(new Movement(thirdPartyName, amount));
+    //         this.addBalance(amount);
+    //         return true;
+    //     } else if (amount < 0) {
+    //         // Solo registrar si se pudo extraer el saldo
+    //         const exito = this.extractBalance(-amount);
+    //         if (exito) {
+    //             this.movements.push(new Movement(thirdPartyName, amount));
+    //             return true;
+    //         } else {
+    //             alert("Fondos insuficientes");
+    //             return false;
+    //         }
+    //     }
+    // }
 }
 clients[0].savingBanks.push(new SavingBanks("ARS", 1000, "mmalkineki"))
 clients[0].savingBanks.push(new SavingBanks("USD", 0, "mmalkineki2"))

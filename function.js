@@ -105,3 +105,27 @@ function findMovementsInSpecificCreditCard(id) {
     }
     return -1;
 }
+
+function TransferBalance(idCajaOrdenante, idCajaBeneficiario, amount){
+    for(let i =0; i< clients.length; i++){
+        for(let j=0; j<clients[i].savingBanks.length; j++){
+            if(clients[i].savingBanks[j].id == idCajaOrdenante){
+                 clients[i].savingBanks[j].extractBalance(amount)
+            }
+                
+                
+        }
+    }
+       for (let i = 0; i < clients.length; i++) {
+        for (let j = 0; j < clients[i].savingBanks.length; j++) {
+            if (
+                clients[i].savingBanks[j].id == idCajaBeneficiario ||
+                clients[i].savingBanks[j].alias == idCajaBeneficiario ||
+                clients[i].savingBanks[j].cbu == idCajaBeneficiario
+            ) {
+                clients[i].savingBanks[j].addBalance(amount);
+            } 
+        }
+    }
+}
+

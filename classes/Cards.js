@@ -15,35 +15,35 @@ class DebitCard {
         this.nameUser = nameUser
         this.movements = []
     }
-    registerMovements(thirdPartyName, amount) {
-        if (this.expireDate >= new Date()) {
-            alert("No puedes hacer esta transacción la tarjeta está vencida")
-        } else {
-            if (amount > 0) {
-                let debitCardNumber = this.id
-                for (let i = 0; clients.length; i++) {
-                    for (let j = 0; clients[i].savingBanks.length; j++) {
-                        for (k = 0; clients[i].savingBanks[j].debitCards.length; k++) {
-                            if (clients[i].savingBanks[j].debitCards[k].id == debitCardNumber) {
-                                clients[i].savingBanks[j].addBalance(amount)
-                            }
-                        }
-                    }
-                }
-            }else if (amount < 0){
-                let debitCardNumber = this.id
-                for (let i = 0; clients.length; i++) {
-                    for (let j = 0; clients[i].savingBanks.length; j++) {
-                        for (k = 0; clients[i].savingBanks[j].debitCards.length; k++) {
-                            if (clients[i].savingBanks[j].debitCards[k].id == debitCardNumber) {
-                                clients[i].savingBanks[j].addBalance(-amount)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    // registerMovements(thirdPartyName, amount) {
+    //     if (this.expireDate >= new Date()) {
+    //         alert("No puedes hacer esta transacción la tarjeta está vencida")
+    //     } else {
+    //         if (amount > 0) {
+    //             let debitCardNumber = this.id
+    //             for (let i = 0; clients.length; i++) {
+    //                 for (let j = 0; clients[i].savingBanks.length; j++) {
+    //                     for (k = 0; clients[i].savingBanks[j].debitCards.length; k++) {
+    //                         if (clients[i].savingBanks[j].debitCards[k].id == debitCardNumber) {
+    //                             clients[i].savingBanks[j].addBalance(amount)
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }else if (amount < 0){
+    //             let debitCardNumber = this.id
+    //             for (let i = 0; clients.length; i++) {
+    //                 for (let j = 0; clients[i].savingBanks.length; j++) {
+    //                     for (k = 0; clients[i].savingBanks[j].debitCards.length; k++) {
+    //                         if (clients[i].savingBanks[j].debitCards[k].id == debitCardNumber) {
+    //                             clients[i].savingBanks[j].addBalance(-amount)
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 }
 /* 
 Esto para que podamos poner distintas fechas de vencimiento
@@ -52,7 +52,7 @@ this.expireDate.setFullYear(this.expireDate.getFullYear() + 5)
  */
 
 class CreditCard {
-    constructor(provider, securityNumber, nameUser) {
+    constructor(provider, securityNumber, nameUser, closeDate, expireBalanceDate) {
         this.id = idCreditCard;
         idCreditCard++;
         this.number = numberCard;
@@ -63,15 +63,34 @@ class CreditCard {
         this.securityNumber = securityNumber;
         this.nameUser = nameUser;
         this.movements = [];
-        this.balance = 0;
+        this.balance = 1500;
         //si paga menos de loque debe le rompemos el ojete con el interés
         // /Si solo pagaron totales = balance * interes (1) = balance
         //sihicieron algun pago menor balance = balance * interes (1, algo)
         this.interest = 1;
         this.closeDate = closeDate;
-        this.expireBalanceDate = this.expireBalanceDate;
+        this.expireBalanceDate = expireBalanceDate;
 
     }
+
+    registerPayment(amount) {
+        let pagoMinimo = this.balance *0.1
+        if(amount >= pagoMinimo){
+            this.balance = this.balance - amount
+            if (this.balance <= 0 ){
+                return 1
+            }
+            else if(this.balance >= 0){
+                return 0
+            }
+        }
+        else if(amount <pagoMinimo){
+            return -1
+        }
+    }
+
+
+
 }
 
 
@@ -86,3 +105,4 @@ clients[1].savingBanks[1].debitCards.push(new DebitCard("MasterCard", 775, "Juan
 clients[2].savingBanks[0].debitCards.push(new DebitCard("Visa", 501, "pe"));
 clients[3].savingBanks[0].debitCards.push(new DebitCard("MasterCard", 212, "ca"));
 
+clients[1].creditCards.push(new CreditCard("Visa",888,"Juan Lucas Casanova"))
