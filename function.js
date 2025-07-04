@@ -12,7 +12,7 @@ function findSavingBanks(id, typeCurrency) {
     for (let i = 0; i < clients.length; i++) {
         for (let j = 0; j < clients[i].savingBanks.length; j++) {
             if (clients[i].id == id) {
-                if (typeCurrency == client[i].savingBanks[j].currency) {
+                if (typeCurrency == clients[i].savingBanks[j].currency) {
                     associatesSavingBanks.push(clients[i].savingBanks[j])
                 } else if (typeCurrency == undefined) {
                     associatesSavingBanks.push(clients[i].savingBanks[j])
@@ -110,7 +110,8 @@ function TransferBalance(idCajaOrdenante, idCajaBeneficiario, amount){
     for(let i =0; i< clients.length; i++){
         for(let j=0; j<clients[i].savingBanks.length; j++){
             if(clients[i].savingBanks[j].id == idCajaOrdenante){
-                 clients[i].savingBanks[j].extractBalance(amount)
+                 exito = clients[i].savingBanks[j].extractBalance(amount)
+                 return exito
             }
                 
                 
@@ -123,7 +124,8 @@ function TransferBalance(idCajaOrdenante, idCajaBeneficiario, amount){
                 clients[i].savingBanks[j].alias == idCajaBeneficiario ||
                 clients[i].savingBanks[j].cbu == idCajaBeneficiario
             ) {
-                clients[i].savingBanks[j].addBalance(amount);
+                exito = clients[i].savingBanks[j].addBalance(amount);
+                return exito
             } 
         }
     }
