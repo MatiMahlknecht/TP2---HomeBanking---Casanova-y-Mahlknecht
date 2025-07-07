@@ -85,7 +85,7 @@ function findMovementsInSpecificDebitCard(id) {
     for (let i = 0; i < clients.length; i++) {
         for (let j = 0; j < clients[i].savingBanks.length; j++) {
             for (let k = 0; k < clients[i].savingBanks[j].debitCards.length; k++) {
-                if (clients[i].savingBanks[j].debitCards[k].id == id){
+                if (clients[i].savingBanks[j].debitCards[k].id == id) {
                     return clients[i].savingBanks[j].debitCards[k].historyConsumption
                 }
             }
@@ -99,34 +99,35 @@ function findMovementsInSpecificCreditCard(id) {
     for (let i = 0; i < clients.length; i++) {
         for (let j = 0; j < clients[i].creditCards.length; j++) {
             if (clients[i].creditCards[j].id == id) {
-                return clients[i].creditCards[j].historyConsumption
+                return clients[i].creditCards[j].movements
             }
         }
     }
     return -1;
 }
 
-function TransferBalance(idCajaOrdenante, idCajaBeneficiario, amount){
-    for(let i =0; i< clients.length; i++){
-        for(let j=0; j<clients[i].savingBanks.length; j++){
-            if(clients[i].savingBanks[j].id == idCajaOrdenante){
-                 exito = clients[i].savingBanks[j].extractBalance(amount)
-                 return exito
-            }
-                
-                
-        }
-    }
-       for (let i = 0; i < clients.length; i++) {
+function transferBalance(idCajaOrdenante, idCajaBeneficiario, amount) {
+    for (let i = 0; i < clients.length; i++) {
         for (let j = 0; j < clients[i].savingBanks.length; j++) {
-            if (
-                clients[i].savingBanks[j].id == idCajaBeneficiario ||
-                clients[i].savingBanks[j].alias == idCajaBeneficiario ||
-                clients[i].savingBanks[j].cbu == idCajaBeneficiario
-            ) {
-                exito = clients[i].savingBanks[j].addBalance(amount);
-                return exito
-            } 
+            if (clients[i].savingBanks[j].id == idCajaOrdenante) {
+                let exito = clients[i].savingBanks[j].extractBalance(amount)
+                if (exito) {
+                    for (let i = 0; i < clients.length; i++) {
+                        for (let j = 0; j < clients[i].savingBanks.length; j++) {
+                            if (
+                                clients[i].savingBanks[j].id == idCajaBeneficiario ||
+                                clients[i].savingBanks[j].alias == idCajaBeneficiario ||
+                                clients[i].savingBanks[j].cbu == idCajaBeneficiario
+                            ) {
+                                let transferencia = clients[i].savingBanks[j].addBalance(amount);
+                                return transferencia
+                            }
+                        }
+                    }
+                }
+            }
+
+
         }
     }
 }
