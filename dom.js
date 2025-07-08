@@ -134,30 +134,34 @@ function closeAccount() {
 
 function confirmCloseAccount() {
     changeScreen()
-    const offcanvasElement = document.getElementById("menuLateral");
-    const offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement)
-        || new bootstrap.Offcanvas(offcanvasElement)
-    offcanvasInstance.hide()
+    document.getElementById("offcanvasMenu").style.class = 'offcanvas offcanvas-end text-bg-dark hiding'
 }
 
 function fillItems(id) {
     let opcionesCuentas = ""
+    let opcionesCuentasOrigen = ""
     let opcionesDebitCards = ""
+    let opcionesCuentasDestino = ""
+    let opcionesCuentasEnPesos = ""
+    let opcionesCuentasEnDolares = ""
     let client = findClient(id)
     let savingBanks = findSavingBanks(id)
+    console.log(savingBanks)
     let debitCards = findDebitCards(id)
-    
-                    opcionesCuentas += `
+    console.log(debitCards)
+    for (let i = 0; i < savingBanks.length; i++) {
+        if (savingBanks[i].currency == "ARS") {
+            opcionesCuentas += `
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="card shadow-sm h-100" >
                         <div class="card-body">
                             <h5 class="card-title">Caja de Ahorro en pesos</h5>
-                            <p class="card-text mb-1"><strong>Moneda:</strong> ${clients[i].savingBanks[j].currency}</p>
-                            <p class="card-text mb-1"><strong>Saldo:</strong> ${clients[i].savingBanks[j].balance}</p>
-                            <p class="card-text mb-1"><strong>Descubierto disponible:</strong> ${clients[i].savingBanks[j].uncoveredLimit}</p>
-                            <p class="card-text mb-1"><strong>Descubierto usado:</strong> ${clients[i].savingBanks[j].overdraft}</p>
-                            <p class="card-text mb-1"><strong>Alias:</strong> ${clients[i].savingBanks[j].alias}</p>
-                            <p class="card-text mb-3"><strong>CBU:</strong> ${clients[i].savingBanks[j].cbu}</p>
+                            <p class="card-text mb-1"><strong>Moneda:</strong> ${savingBanks[i].currency}</p>
+                            <p class="card-text mb-1"><strong>Saldo:</strong> ${savingBanks[i].balance}</p>
+                            <p class="card-text mb-1"><strong>Descubierto disponible:</strong> ${savingBanks[i].uncoveredLimit}</p>
+                            <p class="card-text mb-1"><strong>Descubierto usado:</strong> ${savingBanks[i].overdraft}</p>
+                            <p class="card-text mb-1"><strong>Alias:</strong> ${savingBanks[i].alias}</p>
+                            <p class="card-text mb-3"><strong>CBU:</strong> ${savingBanks[i].cbu}</p>
                             <div class="d-grid">
                                 <button class="btn btn-outline-primary btn-sm">Ver movimientos</button>
                             </div>
@@ -165,16 +169,18 @@ function fillItems(id) {
                     </div>
                 </div >
             `
-                } else {
-                    opcionesCuentas += `
+            opcionesCuentasOrigen += `<option value = ${savingBanks[i].id}> Alias: ${savingBanks[i].alias}, Moneda: Pesos</option>`
+            opcionesCuentasEnPesos += `<option value = ${savingBanks[i].id}> Alias: ${savingBanks[i].alias}</option>`
+        } else {
+            opcionesCuentas += `
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="card shadow-sm h-100" >
                         <div class="card-body">
                             <h5 class="card-title">Caja de Ahorro en dólares</h5>
-                            <p class="card-text mb-1"><strong>Moneda:</strong> ${clients[i].savingBanks[j].currency}</p>
-                            <p class="card-text mb-1"><strong>Saldo:</strong> ${clients[i].savingBanks[j].balance}</p>
-                            <p class="card-text mb-1"><strong>Alias:</strong> ${clients[i].savingBanks[j].alias}</p>
-                            <p class="card-text mb-3"><strong>CBU:</strong> ${clients[i].savingBanks[j].cbu}</p>
+                            <p class="card-text mb-1"><strong>Moneda:</strong> ${savingBanks[i].currency}</p>
+                            <p class="card-text mb-1"><strong>Saldo:</strong> ${savingBanks[i].balance}</p>
+                            <p class="card-text mb-1"><strong>Alias:</strong> ${savingBanks[i].alias}</p>
+                            <p class="card-text mb-3"><strong>CBU:</strong> ${savingBanks[i].cbu}</p>
                             <div class="d-grid">
                                 <button class="btn btn-outline-primary btn-sm">Ver movimientos</button>
                             </div>
@@ -182,19 +188,31 @@ function fillItems(id) {
                     </div>
                 </div >
             `
-                }
-                for (let k = 0; k < clients[i].savingBanks[j].debitCards.length; k++){
-                    opcionesDebitCards +=`<option value = ${clients[i].savingBanks[j].debitCards[k].id}>${clients[i].savingBanks[j].debitCards[k].number}, ${clients[i].savingBanks[j].debitCards[k].securityNumber}, ${clients[i].savingBanks[j].debitCards[k].provider}</option> `
-                }
+            opcionesCuentasOrigen += `<option value = ${savingBanks[i].id}> Alias: ${savingBanks[i].alias}, Moneda: Dólares</option>`
+            opcionesCuentasEnDolares += `<option value = ${savingBanks[i].id}> Alias: ${savingBanks[i].alias}</option>`
+        }
+    }
+    for (let i = 0; i < debitCards.length; i++) {
+        opcionesDebitCards += `<option value = ${debitCards[i].id}> ${debitCards[i].number}</option>`
+    }
+    for (let i = 0; i < clients.length; i++) {
+        for (let j = 0; j < clients[i].savingBanks.length; j++) {
+            if (i == client){} else if (clients[i].savingBanks[j].currency == "ARS") {
+                opcionesCuentasDestino += `<option ${clients[i].savingBanks[j].id}> Alias: ${clients[i].savingBanks[j].alias}, Moneda: Pesos </option>`
+            } else {
+                opcionesCuentasDestino += `<option ${clients[i].savingBanks[j].id}> Alias: ${clients[i].savingBanks[j].alias}, Moneda: Dólares </option>`
             }
         }
     }
-    console.log(opcionesDebitCards)
     document.getElementById("rowAccounts").innerHTML = opcionesCuentas
     document.getElementById("debitCardAccountSelect").innerHTML = opcionesDebitCards
-
-
+    document.getElementById("transferOrigin").innerHTML = opcionesCuentasOrigen
+    document.getElementById("transferDestinysSelect").innerHTML = opcionesCuentasDestino
+    document.getElementById("pesosAccount").innerHTML = opcionesCuentasEnPesos
+    document.getElementById("dollarsAccount").innerHTML = opcionesCuentasEnDolares
 }
+
+
 
 
 document.getElementById("bankAccount").style.display = 'none'
