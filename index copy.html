@@ -91,14 +91,14 @@
                             <form id="loginForm">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="loginDni" placeholder="DNI" required>
-                                    <label for="loginDni">DNI</label>
+                                    <label for="loginDni">DNI ZZ</label>
                                 </div>
                                 <div class="form-floating mb-3">
                                     <input type="password" class="form-control" id="loginPassword"
                                         placeholder="Contraseña" required>
                                     <label for="loginPassword">Contraseña</label>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+                                    <button type="submit" class="btn btn-primary w-100" onclick="login()">Ingresar</button>
                             </form>
                         </div>
 
@@ -285,7 +285,7 @@
 
             <form>
                 <div class="mb-3">
-                    <label for="dollarOperation" class="form-label">Operación</label>
+                    <label class="form-label">Operación</label>
                     <select id="dollarOperation" class="form-select">
                         <option selected disabled>Seleccione una opción</option>
                         <option value="compra">Comprar dólares</option>
@@ -520,19 +520,6 @@
     <script src = "classes/Cards.js"></script>
     <script src ="classes/Consumption.js"></script>
     <script src ="functions.js"></script>
-    <!-- INICIO FIX JL -->
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            login();
-        });
-    }
-});
-</script>
-<!-- FIN FIX JL -->
 </body>
 
 </html>

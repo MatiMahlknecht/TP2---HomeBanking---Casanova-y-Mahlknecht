@@ -131,3 +131,39 @@ function TransferBalance(idCajaOrdenante, idCajaBeneficiario, amount){
     }
 }
 
+// funciones de control y chequeos
+    function detectClients(dni, contraseña) {
+	for(let i= 0; i<clients.length;i++) {
+		if (dni == clients[i].dni && contraseña== clients[i].password){
+		    return clients[i].dni
+		}
+		else if(dni==clients[i].dni && contraseña != clients[i].password){
+		    return 0
+		}
+    }
+    return -1
+}
+
+// Acciones en la pagina (Funciones dependientes del DOM)
+
+
+function login(){
+    // console.log("LLAMADO AHHH!")
+    usuarioLogueado = detectClients(ui.getDni(),ui.getContraseña())
+    if(usuarioLogueado == -1){
+        ui.showModal("ERROR", "USUARIO NO EXISTE")
+        return; // FIX JL
+    }
+    else if(usuarioLogueado == 0){
+        ui.showModal("ERROR", "CONTRASEÑA INCORRECTA")
+        return; // FIX JL
+    }
+    else{
+        for(let i=0; i < clients.length;i++){
+            if(usuarioLogueado == clients[i].dni){
+            }
+        }
+        console.log("todo bien")              
+        // ui.changeScreen();
+    }
+}
