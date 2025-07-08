@@ -43,6 +43,14 @@ function showModal2(title, body) {
     modal.show()
 }
 
+function showModalMovements(title, body) {
+    document.getElementById("modalTitleMovements").innerText = title;
+    document.getElementById("modalBodyMovements").innerHTML = body;
+
+    let modal = new bootstrap.Modal(document.getElementById("modalMovements"));
+    modal.show()
+}
+
 function changeScreen() {
     if (document.getElementById("registerLogin").style.display == 'none') {
         document.getElementById("registerLogin").style.display = ''
@@ -144,11 +152,13 @@ function fillItems(id) {
     let opcionesCuentasDestino = ""
     let opcionesCuentasEnPesos = ""
     let opcionesCuentasEnDolares = ""
+    let opcionesCreditCards = ""
+    let opcionesCreditCardsPago = ""
+    let opcionesDebitCardsPago = ""
     let client = findClient(id)
     let savingBanks = findSavingBanks(id)
-    console.log(savingBanks)
     let debitCards = findDebitCards(id)
-    console.log(debitCards)
+    let creditCards = findCreditCards(id)
     for (let i = 0; i < savingBanks.length; i++) {
         if (savingBanks[i].currency == "ARS") {
             opcionesCuentas += `
@@ -193,16 +203,21 @@ function fillItems(id) {
         }
     }
     for (let i = 0; i < debitCards.length; i++) {
-        opcionesDebitCards += `<option value = ${debitCards[i].id}> ${debitCards[i].number}</option>`
+        opcionesDebitCards += `<option value = ${debitCards[i].id}> Número: ${debitCards[i].number}, Proveedor: ${debitCards[i].provider}</option>`
+        opcionesDebitCardsPago += `<option ${debitCards[i].id}> Tarjeta de débito, Número: ${debitCards[i].number}</option>`
     }
     for (let i = 0; i < clients.length; i++) {
         for (let j = 0; j < clients[i].savingBanks.length; j++) {
-            if (i == client){} else if (clients[i].savingBanks[j].currency == "ARS") {
+            if (i == client) { } else if (clients[i].savingBanks[j].currency == "ARS") {
                 opcionesCuentasDestino += `<option ${clients[i].savingBanks[j].id}> Alias: ${clients[i].savingBanks[j].alias}, Moneda: Pesos </option>`
             } else {
                 opcionesCuentasDestino += `<option ${clients[i].savingBanks[j].id}> Alias: ${clients[i].savingBanks[j].alias}, Moneda: Dólares </option>`
             }
         }
+    }
+    for (let i = 0; i < creditCards.length; i++) {
+        opcionesCreditCards += `<option ${creditCards[i].id}> Número: ${creditCards[i].number}, Proveedor: ${creditCards[i].provider} </option>`
+        opcionesCreditCardsPago += `<option ${creditCards[i].id}> Tarjeta de crédito, Número: ${creditCards[i].number}</option>`
     }
     document.getElementById("rowAccounts").innerHTML = opcionesCuentas
     document.getElementById("debitCardAccountSelect").innerHTML = opcionesDebitCards
@@ -210,8 +225,27 @@ function fillItems(id) {
     document.getElementById("transferDestinysSelect").innerHTML = opcionesCuentasDestino
     document.getElementById("pesosAccount").innerHTML = opcionesCuentasEnPesos
     document.getElementById("dollarsAccount").innerHTML = opcionesCuentasEnDolares
+    document.getElementById("creditCardSelect").innerHTML = opcionesCreditCards
+    document.getElementById("paymentMethodSelect").innerHTML = opcionesCreditCardsPago + opcionesDebitCardsPago
+    document.getElementById("investmentAccountSelect").innerHTML = opcionesCuentasOrigen
 }
 
+
+function seeMovements(id) {
+    let savingBanksMovements = findMovementsInSpecificSavingBank(id)
+    let movements = ""
+    for (let i = 0; i < savingBanksMovements.length; i++) {
+        movements += `
+        <tr>
+            <td>${savingBanksMovements[i].amount}</td>
+            <td>${savingBanksMovements[i].thirdPartyName}</td>
+            <td>${savingBanksMovements[i].date}</td>
+        </tr>
+        `
+    }
+    console.log(movements)
+    showModalMovements("Movimientos", movements)
+}
 
 
 

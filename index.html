@@ -37,7 +37,8 @@
             <div class="offcanvas-body">
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <span id="usuario-logueado">Hola, Usuario</span>
-                    <button class="btn btn-outline-light btn-sm" id="logout" onclick="closeAccount()">Cerrar sesión</button>
+                    <button class="btn btn-outline-light btn-sm" id="logout" onclick="closeAccount()">Cerrar
+                        sesión</button>
                 </div>
                 <hr class="text-white">
                 <ul class="nav flex-column">
@@ -143,7 +144,7 @@
         <section id="accounts" class="border rounded shadow-sm p-4 container my-5">
             <h2 class="mb-4">Mis Cuentas</h2>
 
-            <div class="row" id = "rowAccounts">
+            <div class="row" id="rowAccounts">
             </div>
         </section>
 
@@ -488,8 +489,39 @@
                 <div class="modal-body p-3" id="modalBody2">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" onclick="confirmCloseAccount()" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
-                    <button type ="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" onclick="confirmCloseAccount()" class="btn btn-success"
+                        data-bs-dismiss="modal">Aceptar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalMovements" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleMovements">Título del modal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-3">
+                    <table>
+                        <tr>
+                            <th>
+                                Cantidad gastada/recibida
+                            </th>
+                            <th>
+                                Tercero involucrado
+                            </th>
+                            <th>
+                                Fecha
+                            </th>
+                        </tr> 
+                        <tbody id = "modalBodyMovements"></tbody>     
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
