@@ -25,7 +25,23 @@ class UserInterface {
         modal.show();
     }
 
-
+    changeScreen() {
+        const information = document.getElementById("informacion");
+        const loginForm = document.getElementById("loggin");
+        const hamburguer = document.getElementById("hamburguesaBoton");
+        if (information.style.display == "none") {
+                information.style.display = "";
+                loginForm.style.display = "none";
+                hamburguer.style.display = ""
+            // this.clearAllNotes();
+            // this.clearSelect();
+        }
+        else {
+            information.style.display = "none";
+            loginForm.style.display = "";
+            hamburguer.style.display = "else"
+        }
+    }
 
 }
 const ui = new UserInterface();

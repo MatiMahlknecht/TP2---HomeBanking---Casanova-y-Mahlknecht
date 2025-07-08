@@ -148,7 +148,6 @@ function TransferBalance(idCajaOrdenante, idCajaBeneficiario, amount){
 
 
 function login(){
-    // console.log("LLAMADO AHHH!")
     usuarioLogueado = detectClients(ui.getDni(),ui.getContraseña())
     if(usuarioLogueado == -1){
         ui.showModal("ERROR", "USUARIO NO EXISTE")
@@ -164,6 +163,10 @@ function login(){
             }
         }
         console.log("todo bien")              
-        // ui.changeScreen();
+        ui.changeScreen();
     }
+}
+
+function registrarUsuario(){
+    
 }
