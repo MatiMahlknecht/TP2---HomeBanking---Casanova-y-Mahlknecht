@@ -9,6 +9,25 @@ class UserInterface {
     getContraseña(){
         return document.getElementById("loginPassword").value;
     }
+
+    getRegisterName(){
+        return document.getElementById("registerName").value;
+    }
+    getRegisterLastName(){
+        return document.getElementById("registerLastName").value;
+    }
+    getRegisterDni(){
+        return document.getElementById("registerDni").value;
+    }
+    getRegisterPassword(){
+        return document.getElementById("registerPassword").value;
+    }
+    getRegisterEmail(){
+        return document.getElementById("registerEmail").value;
+    }
+
+
+
      /**
      * Muestra el modal y le inserta los textos que se reciben como parámetros.
      * @param {String} title Título que se quiere mostrar en el modal.

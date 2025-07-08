@@ -1,3 +1,5 @@
+usuarioLogueado = -1
+
 function findClient(id) {
     for (let i = 0; i < clients.length; i++) {
         if (id == clients[i].id) {
@@ -167,6 +169,33 @@ function login(){
     }
 }
 
-function registrarUsuario(){
-    
-}
+// function registrarUsuario(){
+
+//     if (getDniRegister() == "" || getPasswordRegister() == "" || getEmailRegister() == "" || getLastNameRegister() == "" || getNameRegister() == "") {
+//         ui.showModal("Error", "Complete todos los campos para poder continuar")
+//     } else if (getDniRegister().length < 7) {
+//         ui.showModal("Error", "El DNI tiene menos de 7 numeros")
+
+//     } else if (findDni(getDniRegister()) == -1 ) {
+//         ui.showModal("Error", "Este DNI ya fue ingresado anteriormente")
+
+//     } else {
+//         ui.showModal("todo ok", "nice")
+//         clients.push(new Customer(dni, getPasswordRegister(), getNameRegister(), getLastNameRegister()))
+//         // document.getElementById("registerDni").value = ""
+//         // document.getElementById("registerPassword").value = ""
+//         // document.getElementById("registerName").value = ""
+//         // document.getElementById("registerLastName").value = ""
+//         // document.getElementById("registerEmail").value = ""
+//         changeScreen()
+//     }
+// }
+
+// function findDni(dni){
+//     for(let i = 0; i < clients.length; i++){
+//         if(clients[i].dni == dni){
+//             return -1; // Ya existe
+//         }
+//     }
+//     return 1; // No existe
+// }
