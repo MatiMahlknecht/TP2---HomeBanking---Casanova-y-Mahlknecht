@@ -46,9 +46,10 @@ class UserInterface {
 
     changeScreen() {
         const information = document.getElementById("informacion");
-        const loginForm = document.getElementById("loggin");
+        const loginForm = document.getElementById("login");
         const hamburguer = document.getElementById("hamburguesaBoton");
-        if (information.style.display == "none") {
+        const barraLateral = document.getElementById("offcanvasMenu")
+        if (information.style.display == "none" && loginForm.style.display == "" && hamburguer.style.display == "none") {
                 information.style.display = "";
                 loginForm.style.display = "none";
                 hamburguer.style.display = ""
@@ -58,7 +59,8 @@ class UserInterface {
         else {
             information.style.display = "none";
             loginForm.style.display = "";
-            hamburguer.style.display = "else"
+            hamburguer.style.display = "none"
+            barraLateral.style.display = "none"
         }
     }
 

@@ -1,4 +1,6 @@
 usuarioLogueado = -1
+opciones_de_cuenta = "" 
+
 
 function findClient(id) {
     for (let i = 0; i < clients.length; i++) {
@@ -153,11 +155,9 @@ function login(){
     usuarioLogueado = detectClients(ui.getDni(),ui.getContraseña())
     if(usuarioLogueado == -1){
         ui.showModal("ERROR", "USUARIO NO EXISTE")
-        return; // FIX JL
     }
     else if(usuarioLogueado == 0){
         ui.showModal("ERROR", "CONTRASEÑA INCORRECTA")
-        return; // FIX JL
     }
     else{
         for(let i=0; i < clients.length;i++){
@@ -166,6 +166,7 @@ function login(){
         }
         console.log("todo bien")              
         ui.changeScreen();
+        completeAccounts()
     }
 }
 
@@ -200,4 +201,37 @@ function findDni(dni){
         }
     }
     return false; // No existe
+}
+
+function logout(){
+    ui.changeScreen()
+    usuarioLogueado= -1
+}
+
+function completeAccounts(){
+        cajasDisponibles = findSavingBanks(usuarioLogueado)
+        for(let i = 0; i<cajasDisponibles.length; i++){
+            // if(cajasDisponibles[i].currency == "ARS"){
+                
+            document.getElementById("rowAccounts").innerHTML +=`
+                    <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Caja de Ahorro en Pesos</h5>  
+                            <p class="card-text mb-1"><strong>Moneda:</strong> ARS</p>
+                            <p class="card-text mb-1"><strong>Saldo:</strong> ${cajasDisponibles[i].balance}</p>
+                            <p class="card-text mb-1"><strong>Descubierto disponible:</strong>${cajasDisponibles[i].uncoveredLimit}</p>
+                            <p class="card-text mb-1"><strong>Descubierto usado:</strong>${cajasDisponibles[i].overdraft}</p>
+                            <p class="card-text mb-1"><strong>Alias:</strong> ${cajasDisponibles[i].alias}</p>
+                            <p class="card-text mb-3"><strong>CBU:</strong> ${cajasDisponibles[i].cbu}</p>
+                            <div class="d-grid">
+                                <button class="btn btn-outline-primary btn-sm">Ver movimientos</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        `
+            // }
+            // else{console.log("uhhhh")}
+        }
 }
