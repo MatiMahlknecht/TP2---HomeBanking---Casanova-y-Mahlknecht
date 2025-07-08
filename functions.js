@@ -169,33 +169,35 @@ function login(){
     }
 }
 
-// function registrarUsuario(){
+function registrarUsuario() {
+    if (ui.getRegisterDni() == "" || ui.getRegisterPassword() == "" || ui.getRegisterEmail() == "" || ui.getRegisterLastName() == "" || ui.getRegisterName() == "") {
+        ui.showModal("Error", "Complete todos los campos para poder continuar")
+    } else if (/^[a-zA-Z]+$/.test(ui.getRegisterDni())) {
+        ui.showModal("Error", "El DNI debe ser un número, no debe contener letras")
+    } else if (ui.getRegisterDni().length < 7) {
+        ui.showModal("Error", "El DNI tiene menos de 7 numeros")
+    } else if (findDni(ui.getRegisterDni())) {
+        ui.showModal("Error", "Este DNI ya fue ingresado anteriormente")
+    } else if (/^[a-zA-Z]+$/.test(ui.getRegisterLastName()) && /^[a-zA-Z]+$/.test(ui.getRegisterName())) {
+        let dni = Number(ui.getRegisterDni())
+        clients.push(new Customer(dni, ui.getRegisterPassword(), ui.getRegisterName(), ui.getRegisterLastName()))
+        document.getElementById("registerDni").value = ""
+        document.getElementById("registerPassword").value = ""
+        document.getElementById("registerName").value = ""
+        document.getElementById("registerLastName").value = ""
+        document.getElementById("registerEmail").value = ""
+        ui.changeScreen()
 
-//     if (getDniRegister() == "" || getPasswordRegister() == "" || getEmailRegister() == "" || getLastNameRegister() == "" || getNameRegister() == "") {
-//         ui.showModal("Error", "Complete todos los campos para poder continuar")
-//     } else if (getDniRegister().length < 7) {
-//         ui.showModal("Error", "El DNI tiene menos de 7 numeros")
+    } else {
+        ui.showModal("Error", "El nombre o el apellido contienen números, eso no es posible")
+    }
+}
 
-//     } else if (findDni(getDniRegister()) == -1 ) {
-//         ui.showModal("Error", "Este DNI ya fue ingresado anteriormente")
-
-//     } else {
-//         ui.showModal("todo ok", "nice")
-//         clients.push(new Customer(dni, getPasswordRegister(), getNameRegister(), getLastNameRegister()))
-//         // document.getElementById("registerDni").value = ""
-//         // document.getElementById("registerPassword").value = ""
-//         // document.getElementById("registerName").value = ""
-//         // document.getElementById("registerLastName").value = ""
-//         // document.getElementById("registerEmail").value = ""
-//         changeScreen()
-//     }
-// }
-
-// function findDni(dni){
-//     for(let i = 0; i < clients.length; i++){
-//         if(clients[i].dni == dni){
-//             return -1; // Ya existe
-//         }
-//     }
-//     return 1; // No existe
-// }
+function findDni(dni){
+    for(let i = 0; i < clients.length; i++){
+        if(clients[i].dni == dni){
+            return true // Ya existe
+        }
+    }
+    return false; // No existe
+}
