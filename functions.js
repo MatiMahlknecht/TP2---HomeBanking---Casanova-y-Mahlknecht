@@ -21,6 +21,7 @@ function findSavingBanks(id, typeCurrency) {
                 } else if (typeCurrency == undefined) {
                     associatesSavingBanks.push(clients[i].savingBanks[j])
                 }
+            } else{
             }
         }
     }
@@ -139,7 +140,7 @@ function TransferBalance(idCajaOrdenante, idCajaBeneficiario, amount){
     function detectClients(dni, contraseña) {
 	for(let i= 0; i<clients.length;i++) {
 		if (dni == clients[i].dni && contraseña== clients[i].password){
-		    return clients[i].dni
+		    return clients[i].id
 		}
 		else if(dni==clients[i].dni && contraseña != clients[i].password){
 		    return 0
@@ -161,12 +162,12 @@ function login(){
     }
     else{
         for(let i=0; i < clients.length;i++){
-            if(usuarioLogueado == clients[i].dni){
+            if(usuarioLogueado == clients[i].id){
             }
         }
         console.log("todo bien")              
         ui.changeScreen();
-        completeAccounts()
+        ui.completeAccounts(usuarioLogueado, findSavingBanks(usuarioLogueado))
     }
 }
 
@@ -208,30 +209,8 @@ function logout(){
     usuarioLogueado= -1
 }
 
-function completeAccounts(){
-        cajasDisponibles = findSavingBanks(usuarioLogueado)
-        for(let i = 0; i<cajasDisponibles.length; i++){
-            // if(cajasDisponibles[i].currency == "ARS"){
-                
-            document.getElementById("rowAccounts").innerHTML +=`
-                    <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Caja de Ahorro en Pesos</h5>  
-                            <p class="card-text mb-1"><strong>Moneda:</strong> ARS</p>
-                            <p class="card-text mb-1"><strong>Saldo:</strong> ${cajasDisponibles[i].balance}</p>
-                            <p class="card-text mb-1"><strong>Descubierto disponible:</strong>${cajasDisponibles[i].uncoveredLimit}</p>
-                            <p class="card-text mb-1"><strong>Descubierto usado:</strong>${cajasDisponibles[i].overdraft}</p>
-                            <p class="card-text mb-1"><strong>Alias:</strong> ${cajasDisponibles[i].alias}</p>
-                            <p class="card-text mb-3"><strong>CBU:</strong> ${cajasDisponibles[i].cbu}</p>
-                            <div class="d-grid">
-                                <button class="btn btn-outline-primary btn-sm">Ver movimientos</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        `
-            // }
-            // else{console.log("uhhhh")}
-        }
+function mostrarCuentasDeBanco(){
+    for(let i = 0; clients[usuarioLogueado].savingBanks.length;i++){
+        ui.selectCajaDeAhorros(clients[usuarioLogueado].savingBanks[i])
+    }
 }
