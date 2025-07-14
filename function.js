@@ -86,7 +86,7 @@ function findMovementsInSpecificDebitCard(id) {
         for (let j = 0; j < clients[i].savingBanks.length; j++) {
             for (let k = 0; k < clients[i].savingBanks[j].debitCards.length; k++) {
                 if (clients[i].savingBanks[j].debitCards[k].id == id) {
-                    return clients[i].savingBanks[j].debitCards[k].historyConsumption
+                    return clients[i].savingBanks[j].debitCards[k].movements
                 }
             }
         }
@@ -120,10 +120,13 @@ function transferBalance(idCajaOrdenante, idCajaBeneficiario, amount) {
                                 clients[i].savingBanks[j].cbu == idCajaBeneficiario
                             ) {
                                 let transferencia = clients[i].savingBanks[j].addBalance(amount);
+                                console.log(transferencia)
                                 return transferencia
                             }
                         }
                     }
+                }else {
+                    return exito
                 }
             }
 

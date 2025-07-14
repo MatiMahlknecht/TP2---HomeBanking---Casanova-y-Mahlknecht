@@ -34,7 +34,6 @@ class Customer {
                     alert("No se pudo hacer la transaccion")
                 }
             } else if (this.savingBanks[i].id == idSavingBanksSell & this.savingBanks[i].currency == "ARS") {
-
                 procedure = this.savingBanks[i].extractBalance(amount)
                 let dollars = amount / Valor_del_dolar_compra
                 if (procedure) {

@@ -155,7 +155,7 @@
             <!-- Selector de tarjeta -->
             <div class="mb-3">
                 <label for="debitCardAccountSelect" class="form-label">Seleccionar caja de ahorro</label>
-                <select id="debitCardAccountSelect" class="form-select">
+                <select id="debitCardAccountSelect" class="form-select" onchange="debitCardsInfo(idUser)">
                     <!-- Opciones a generar dinámicamente -->
                 </select>
             </div>
@@ -172,8 +172,9 @@
                     <div class="mb-2">
                         <label for="debitCardNumber" class="form-label">Número de tarjeta</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="debitCardNumber" readonly>
-                            <button class="btn btn-outline-secondary" type="button" id="toggleDebitCardNumber">
+                            <input type="password" class="form-control" id="debitCardNumber" readonly>
+                            <button class="btn btn-outline-secondary" type="button" onclick="uncoverNumber()"
+                                id="toggleDebitCardNumber">
                                 <i class="bi bi-eye" id="debitCardNumberIcon"></i>
                             </button>
                         </div>
@@ -184,11 +185,16 @@
                         <label for="debitCardCvv" class="form-label">Código de seguridad</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="debitCardCvv" readonly>
-                            <button class="btn btn-outline-secondary" type="button" id="toggleDebitCvv">
+                            <button class="btn btn-outline-secondary" type="button" onclick="uncoverSecurityNumber()"
+                                id="toggleDebitCvv">
                                 <i class="bi bi-eye" id="debitCvvIcon"></i>
                             </button>
                         </div>
                     </div>
+                </div>
+                <div class="d-grid">
+                    <button class="btn btn-outline-primary btn-sm" onclick="seeMovementsDebitCard(getIdDebitCard())">Ver
+                        movimientos</button>
                 </div>
             </div>
 
@@ -197,7 +203,6 @@
         <section id="transfers" class="border rounded shadow-sm p-4 container my-5">
             <h2 class="mb-4">Transferencias</h2>
 
-            <form>
                 <div class="mb-3">
                     <label for="transferOrigin" class="form-label">Cuenta de origen</label>
                     <select id="transferOrigin" class="form-select">
@@ -225,9 +230,8 @@
                 </div>
 
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Realizar transferencia</button>
+                    <button onclick="noQuieroLaburarMas(getIdTransferOrigin(), getIdTransferDestiny(), getAmountTransfer())" class="btn btn-primary">Realizar transferencia</button>
                 </div>
-            </form>
         </section>
 
         <section id="dollar" class="border rounded shadow-sm p-4 container my-5">
@@ -251,7 +255,6 @@
                 </div>
             </div>
 
-            <form>
                 <div class="mb-3">
                     <label class="form-label">Operación</label>
                     <select id="dollarOperation" class="form-select">
@@ -285,9 +288,8 @@
                 </div>
 
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-success">Confirmar operación</button>
+                    <button onclick="jazTeExtraño()" class="btn btn-success">Confirmar operación</button>
                 </div>
-            </form>
         </section>
 
 
@@ -515,8 +517,8 @@
                             <th>
                                 Fecha
                             </th>
-                        </tr> 
-                        <tbody id = "modalBodyMovements"></tbody>     
+                        </tr>
+                        <tbody id="modalBodyMovements"></tbody>
                     </table>
 
                 </div>

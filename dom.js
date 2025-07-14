@@ -27,6 +27,62 @@ function getNameRegister() {
     return document.getElementById("registerName").value
 }
 
+function getIdDebitCard(){
+    return document.getElementById("debitCardAccountSelect").value
+}
+
+function getIdTransferOrigin(){
+    return document.getElementById("transferOrigin").value
+}
+
+function getIdTransferDestiny(){
+    return document.getElementById("transferDestinysSelect").value
+}
+
+function getAmountTransfer(){
+    return document.getElementById("transferAmount").value
+}
+
+function getDollarsAmount(){
+    return document.getElementById("dollarsAmount").value
+}
+
+function getBuyOrSell(){
+    return document.getElementById("dollarOperation").value
+}
+
+function getIdPesosAccount(){
+    return document.getElementById("pesosAccount").value
+}
+
+function getIdDollarsAccount(){
+    return document.getElementById("dollarsAccount").value
+}
+
+function uncoverNumber(){
+    if (document.getElementById("debitCardNumber").type == "password"){
+        document.getElementById("debitCardNumber").type = 'text'
+        document.getElementById("debitCardNumberIcon").classList.remove('bi-eye') 
+        document.getElementById("debitCardNumberIcon").classList.add('bi-eye-slash') 
+    }else{
+        document.getElementById("debitCardNumber").type = 'password'
+        document.getElementById("debitCardNumberIcon").classList.remove('bi-eye-slash') 
+        document.getElementById("debitCardNumberIcon").classList.add('bi-eye') 
+    }
+}
+
+function uncoverSecurityNumber(){
+    if (document.getElementById("debitCardCvv").type == "password"){
+        document.getElementById("debitCardCvv").type = 'text'
+        document.getElementById("debitCvvIcon").classList.remove('bi-eye') 
+        document.getElementById("debitCvvIcon").classList.add('bi-eye-slash') 
+    }else{
+        document.getElementById("debitCardCvv").type = 'password'
+        document.getElementById("debitCvvIcon").classList.remove('bi-eye-slash') 
+        document.getElementById("debitCvvIcon").classList.add('bi-eye') 
+    }
+}
+
 function showModal(title, body) {
     document.getElementById("modalTitle").innerText = title;
     document.getElementById("modalBody").innerHTML = body;
@@ -173,7 +229,7 @@ function fillItems(id) {
                             <p class="card-text mb-1"><strong>Alias:</strong> ${savingBanks[i].alias}</p>
                             <p class="card-text mb-3"><strong>CBU:</strong> ${savingBanks[i].cbu}</p>
                             <div class="d-grid">
-                                <button class="btn btn-outline-primary btn-sm">Ver movimientos</button>
+                                <button class="btn btn-outline-primary btn-sm" onclick="seeMovements(idUser)">Ver movimientos</button>
                             </div>
                         </div>
                     </div>
@@ -181,6 +237,7 @@ function fillItems(id) {
             `
             opcionesCuentasOrigen += `<option value = ${savingBanks[i].id}> Alias: ${savingBanks[i].alias}, Moneda: Pesos</option>`
             opcionesCuentasEnPesos += `<option value = ${savingBanks[i].id}> Alias: ${savingBanks[i].alias}</option>`
+            console.log(opcionesCuentasOrigen)
         } else {
             opcionesCuentas += `
                 <div class="col-md-6 col-lg-4 mb-4">
@@ -192,7 +249,7 @@ function fillItems(id) {
                             <p class="card-text mb-1"><strong>Alias:</strong> ${savingBanks[i].alias}</p>
                             <p class="card-text mb-3"><strong>CBU:</strong> ${savingBanks[i].cbu}</p>
                             <div class="d-grid">
-                                <button class="btn btn-outline-primary btn-sm">Ver movimientos</button>
+                                <button class="btn btn-outline-primary btn-sm" onclick ="seeMovements(idUser)">Ver movimientos</button>
                             </div>
                         </div>
                     </div>
@@ -209,9 +266,9 @@ function fillItems(id) {
     for (let i = 0; i < clients.length; i++) {
         for (let j = 0; j < clients[i].savingBanks.length; j++) {
             if (i == client) { } else if (clients[i].savingBanks[j].currency == "ARS") {
-                opcionesCuentasDestino += `<option ${clients[i].savingBanks[j].id}> Alias: ${clients[i].savingBanks[j].alias}, Moneda: Pesos </option>`
+                opcionesCuentasDestino += `<option value = ${clients[i].savingBanks[j].id}> Alias: ${clients[i].savingBanks[j].alias}, Moneda: Pesos </option>`
             } else {
-                opcionesCuentasDestino += `<option ${clients[i].savingBanks[j].id}> Alias: ${clients[i].savingBanks[j].alias}, Moneda: Dólares </option>`
+                opcionesCuentasDestino += `<option value =  ${clients[i].savingBanks[j].id}> Alias: ${clients[i].savingBanks[j].alias}, Moneda: Dólares </option>`
             }
         }
     }
@@ -230,7 +287,6 @@ function fillItems(id) {
     document.getElementById("investmentAccountSelect").innerHTML = opcionesCuentasOrigen
 }
 
-
 function seeMovements(id) {
     let savingBanksMovements = findMovementsInSpecificSavingBank(id)
     let movements = ""
@@ -243,11 +299,90 @@ function seeMovements(id) {
         </tr>
         `
     }
-    console.log(movements)
     showModalMovements("Movimientos", movements)
 }
 
+function debitCardsInfo(id){
+    let debitCards = findDebitCards(id)
+    for (let i = 0; i < debitCards.length; i++){
+        if (getIdDebitCard() == debitCards[i].id){
+            document.getElementById("debitCardTitle").innerText = ""
+            document.getElementById("debitCardHolder").innerText = ""
+            document.getElementById("debitCardExpiry").innerText = ""
+            document.getElementById("debitCardNumber").innerText = ""
+            document.getElementById("debitCardCvv").innerText = ""
+            document.getElementById("debitCardTitle").innerText = debitCards[i].provider + " " + debitCards[i].id
+            document.getElementById("debitCardHolder").innerText = debitCards[i].nameUser
+            document.getElementById("debitCardExpiry").innerText = debitCards[i].expireDate
+            document.getElementById("debitCardNumber").value = debitCards[i].number
+            document.getElementById("debitCardCvv").value = debitCards[i].securityNumber
+        }
+    }
+}
 
+function seeMovementsDebitCard(id){
+    let movimientos = findMovementsInSpecificDebitCard(id)
+    console.log(movimientos)
+    let opcionesMovimientos = ""
+    for (let i = 0; i < movimientos.length; i++){
+        opcionesMovimientos += `
+        <tr>
+            <td>${movimientos[i].amount}</td>
+            <td>${movimientos[i].thirdPartyName}</td>
+            <td>${movimientos[i].date}</td>
+        </tr>
+        `
+    }
+    showModalMovements("Movimientos", opcionesMovimientos)
+}
 
+function noQuieroLaburarMas(jazMiReAmor, porqueSeTerminoVillaOcampoLaPutaMadre, losDeDefeSonTodosPutos){
+    let exito = transferBalance(jazMiReAmor, porqueSeTerminoVillaOcampoLaPutaMadre, losDeDefeSonTodosPutos)
+    console.log(exito)
+    if (exito > 0){
+        document.getElementById("transferDestinysSelect").value = ""
+        document.getElementById("transferOrigin").value = ""
+        document.getElementById("transferAmount").value = ""
+        console.log("Funciona")
+        fillItems(idUser)
+        showModal("Éxito", "Transferencia exitosa")
+        return exito
+    }else{
+        showModal("Error", "No había suficiente dinero en la transferencia, por lo que no se pudo hacer")
+    }
+}
+
+function jazTeExtraño(){
+    indexClient = findClient(idUser)
+    if(getBuyOrSell() == "venta"){
+        clients[indexClient].buySellDollars(getDollarsAmount(), getIdPesosAccount(), getIdDollarsAccount())
+        document.getElementById("dollarsAmount").value = ""
+        fillItems(idUser)
+        showModal("Exito", "Venta exitosa")
+    }else if(getBuyOrSell() == "compra"){
+        clients[indexClient].buySellDollars(getDollarsAmount(), getIdDollarsAccount(), getIdPesosAccount())
+        document.getElementById("dollarsAmount").value = ""
+        fillItems(idUser)
+        showModal("Exito", "Compra Exitosa")
+    }
+}
+
+function creditCardsInfo(id){
+    let debitCards = findDebitCards(id)
+    for (let i = 0; i < debitCards.length; i++){
+        if (getIdDebitCard() == debitCards[i].id){
+            document.getElementById("debitCardTitle").innerText = ""
+            document.getElementById("debitCardHolder").innerText = ""
+            document.getElementById("debitCardExpiry").innerText = ""
+            document.getElementById("debitCardNumber").innerText = ""
+            document.getElementById("debitCardCvv").innerText = ""
+            document.getElementById("debitCardTitle").innerText = debitCards[i].provider + " " + debitCards[i].id
+            document.getElementById("debitCardHolder").innerText = debitCards[i].nameUser
+            document.getElementById("debitCardExpiry").innerText = debitCards[i].expireDate
+            document.getElementById("debitCardNumber").value = debitCards[i].number
+            document.getElementById("debitCardCvv").value = debitCards[i].securityNumber
+        }
+    }
+}
 document.getElementById("bankAccount").style.display = 'none'
 document.getElementById("menuHamburguesa").style.display = 'none'

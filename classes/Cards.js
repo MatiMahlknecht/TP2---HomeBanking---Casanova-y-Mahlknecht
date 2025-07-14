@@ -70,7 +70,6 @@ class CreditCard {
         this.provider = provider;
         this.expireDate = new Date();
         this.expireDate.setFullYear(this.expireDate.getFullYear() + 5);
-        console.log(this.expireDate)
         this.securityNumber = securityNumber;
         this.nameUser = nameUser;
         this.movements = [];
