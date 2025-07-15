@@ -336,8 +336,8 @@ function seeMovementsDebitCard(id){
     showModalMovements("Movimientos", opcionesMovimientos)
 }
 
-function noQuieroLaburarMas(jazMiReAmor, porqueSeTerminoVillaOcampoLaPutaMadre, losDeDefeSonTodosPutos){
-    let exito = transferBalance(jazMiReAmor, porqueSeTerminoVillaOcampoLaPutaMadre, losDeDefeSonTodosPutos)
+function transfers(idSender, idReciever, amount){
+    let exito = transferBalance(idSender, idReciever, amount)
     console.log(exito)
     if (exito > 0){
         document.getElementById("transferDestinysSelect").value = ""
@@ -352,7 +352,7 @@ function noQuieroLaburarMas(jazMiReAmor, porqueSeTerminoVillaOcampoLaPutaMadre, 
     }
 }
 
-function jazTeExtraño(){
+function buyOrSellDollars(){
     indexClient = findClient(idUser)
     if(getBuyOrSell() == "venta"){
         clients[indexClient].buySellDollars(getDollarsAmount(), getIdPesosAccount(), getIdDollarsAccount())
@@ -383,6 +383,10 @@ function creditCardsInfo(id){
             document.getElementById("debitCardCvv").value = debitCards[i].securityNumber
         }
     }
+}
+
+function laPutaMadreQueLoPario(){
+
 }
 document.getElementById("bankAccount").style.display = 'none'
 document.getElementById("menuHamburguesa").style.display = 'none'
