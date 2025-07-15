@@ -229,7 +229,7 @@ function fillItems(id) {
                             <p class="card-text mb-1"><strong>Alias:</strong> ${savingBanks[i].alias}</p>
                             <p class="card-text mb-3"><strong>CBU:</strong> ${savingBanks[i].cbu}</p>
                             <div class="d-grid">
-                                <button class="btn btn-outline-primary btn-sm" onclick="seeMovements(idUser)">Ver movimientos</button>
+                                <button class="btn btn-outline-primary btn-sm" onclick="seeMovements(${savingBanks[i].id})">Ver movimientos</button>
                             </div>
                         </div>
                     </div>
@@ -249,7 +249,7 @@ function fillItems(id) {
                             <p class="card-text mb-1"><strong>Alias:</strong> ${savingBanks[i].alias}</p>
                             <p class="card-text mb-3"><strong>CBU:</strong> ${savingBanks[i].cbu}</p>
                             <div class="d-grid">
-                                <button class="btn btn-outline-primary btn-sm" onclick ="seeMovements(idUser)">Ver movimientos</button>
+                                <button class="btn btn-outline-primary btn-sm" onclick ="seeMovements(${savingBanks[i].id})">Ver movimientos</button>
                             </div>
                         </div>
                     </div>
