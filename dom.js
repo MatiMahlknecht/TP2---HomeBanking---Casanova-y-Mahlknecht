@@ -27,91 +27,115 @@ function getNameRegister() {
     return document.getElementById("registerName").value
 }
 
-function getIdDebitCard(){
+function getIdDebitCard() {
     return document.getElementById("debitCardAccountSelect").value
 }
 
-function getIdCreditCard(){
+function getIdCreditCard() {
     return document.getElementById("creditCardSelect").value
 }
 
-function getIdTransferOrigin(){
+function getIdTransferOrigin() {
     return document.getElementById("transferOrigin").value
 }
 
-function getIdTransferDestiny(){
+function getIdTransferDestiny() {
     return document.getElementById("transferDestinysSelect").value
 }
 
-function getAmountTransfer(){
+function getAmountTransfer() {
     return document.getElementById("transferAmount").value
 }
 
-function getDollarsAmount(){
+function getDollarsAmount() {
     return document.getElementById("dollarsAmount").value
 }
 
-function getBuyOrSell(){
+function getBuyOrSell() {
     return document.getElementById("dollarOperation").value
 }
 
-function getIdPesosAccount(){
+function getIdPesosAccount() {
     return document.getElementById("pesosAccount").value
 }
 
-function getIdDollarsAccount(){
+function getIdDollarsAccount() {
     return document.getElementById("dollarsAccount").value
 }
 
-function getAmountToPayCreditCard(){
+function getAmountToPayCreditCard() {
     return document.getElementById("customPaymentAmount").value
 }
 
-function uncoverNumberDebitCard(){
-    if (document.getElementById("debitCardNumber").type == "password"){
+function getIdCard() {
+    return document.getElementById("paymentMethodSelect").value
+}
+
+function getThirdPartyName() {
+    return document.getElementById("storeNameInput").value
+}
+
+function getAmountRegisterMovement() {
+    return document.getElementById("expenseAmountInput").value
+}
+
+function getCuotes() {
+    return document.getElementById("installmentsSelect").value
+}
+
+function getIdSavingBanks(){
+   return document.getElementById("investmentAccountSelect").value
+}
+
+function getAmountToInvest(){
+    return document.getElementById("investmentAmount").value
+}
+
+function uncoverNumberDebitCard() {
+    if (document.getElementById("debitCardNumber").type == "password") {
         document.getElementById("debitCardNumber").type = 'text'
-        document.getElementById("debitCardNumberIcon").classList.remove('bi-eye') 
-        document.getElementById("debitCardNumberIcon").classList.add('bi-eye-slash') 
-    }else{
+        document.getElementById("debitCardNumberIcon").classList.remove('bi-eye')
+        document.getElementById("debitCardNumberIcon").classList.add('bi-eye-slash')
+    } else {
         document.getElementById("debitCardNumber").type = 'password'
-        document.getElementById("debitCardNumberIcon").classList.remove('bi-eye-slash') 
-        document.getElementById("debitCardNumberIcon").classList.add('bi-eye') 
+        document.getElementById("debitCardNumberIcon").classList.remove('bi-eye-slash')
+        document.getElementById("debitCardNumberIcon").classList.add('bi-eye')
     }
 }
 
-function uncoverSecurityNumberDebitCard(){
-    if (document.getElementById("debitCardCvv").type == "password"){
+function uncoverSecurityNumberDebitCard() {
+    if (document.getElementById("debitCardCvv").type == "password") {
         document.getElementById("debitCardCvv").type = 'text'
-        document.getElementById("debitCvvIcon").classList.remove('bi-eye') 
-        document.getElementById("debitCvvIcon").classList.add('bi-eye-slash') 
-    }else{
+        document.getElementById("debitCvvIcon").classList.remove('bi-eye')
+        document.getElementById("debitCvvIcon").classList.add('bi-eye-slash')
+    } else {
         document.getElementById("debitCardCvv").type = 'password'
-        document.getElementById("debitCvvIcon").classList.remove('bi-eye-slash') 
-        document.getElementById("debitCvvIcon").classList.add('bi-eye') 
+        document.getElementById("debitCvvIcon").classList.remove('bi-eye-slash')
+        document.getElementById("debitCvvIcon").classList.add('bi-eye')
     }
 }
 
-function uncoverNumberCreditCard(){
-    if (document.getElementById("cardNumber").type == "password"){
+function uncoverNumberCreditCard() {
+    if (document.getElementById("cardNumber").type == "password") {
         document.getElementById("cardNumber").type = 'text'
-        document.getElementById("cardNumberIcon").classList.remove('bi-eye') 
-        document.getElementById("cardNumberIcon").classList.add('bi-eye-slash') 
-    }else{
+        document.getElementById("cardNumberIcon").classList.remove('bi-eye')
+        document.getElementById("cardNumberIcon").classList.add('bi-eye-slash')
+    } else {
         document.getElementById("cardNumber").type = 'password'
-        document.getElementById("cardNumberIcon").classList.remove('bi-eye-slash') 
-        document.getElementById("cardNumberIcon").classList.add('bi-eye') 
+        document.getElementById("cardNumberIcon").classList.remove('bi-eye-slash')
+        document.getElementById("cardNumberIcon").classList.add('bi-eye')
     }
 }
 
-function uncoverSecurityNumberCreditCard(){
-    if (document.getElementById("cardCvv").type == "password"){
+function uncoverSecurityNumberCreditCard() {
+    if (document.getElementById("cardCvv").type == "password") {
         document.getElementById("cardCvv").type = 'text'
-        document.getElementById("cvvIcon").classList.remove('bi-eye') 
-        document.getElementById("cvvIcon").classList.add('bi-eye-slash') 
-    }else{
+        document.getElementById("cvvIcon").classList.remove('bi-eye')
+        document.getElementById("cvvIcon").classList.add('bi-eye-slash')
+    } else {
         document.getElementById("cardCvv").type = 'password'
-        document.getElementById("cvvIcon").classList.remove('bi-eye-slash') 
-        document.getElementById("cvvIcon").classList.add('bi-eye') 
+        document.getElementById("cvvIcon").classList.remove('bi-eye-slash')
+        document.getElementById("cvvIcon").classList.add('bi-eye')
     }
 }
 
@@ -333,10 +357,10 @@ function seeMovements(id) {
     showModalMovements("Movimientos", movements)
 }
 
-function debitCardsInfo(id){
+function debitCardsInfo(id) {
     let debitCards = findDebitCards(id)
-    for (let i = 0; i < debitCards.length; i++){
-        if (getIdDebitCard() == debitCards[i].id){
+    for (let i = 0; i < debitCards.length; i++) {
+        if (getIdDebitCard() == debitCards[i].id) {
             document.getElementById("debitCardTitle").innerText = ""
             document.getElementById("debitCardHolder").innerText = ""
             document.getElementById("debitCardExpiry").innerText = ""
@@ -351,11 +375,11 @@ function debitCardsInfo(id){
     }
 }
 
-function seeMovementsDebitCard(id){
+function seeMovementsDebitCard(id) {
     let movimientos = findMovementsInSpecificDebitCard(id)
     console.log(movimientos)
     let opcionesMovimientos = ""
-    for (let i = 0; i < movimientos.length; i++){
+    for (let i = 0; i < movimientos.length; i++) {
         opcionesMovimientos += `
         <tr>
             <td>${movimientos[i].amount}</td>
@@ -367,10 +391,10 @@ function seeMovementsDebitCard(id){
     showModalMovements("Movimientos", opcionesMovimientos)
 }
 
-function transfers(idSender, idReciever, amount){
+function transfers(idSender, idReciever, amount) {
     let exito = transferBalance(idSender, idReciever, amount)
     console.log(exito)
-    if (exito > 0){
+    if (exito > 0) {
         document.getElementById("transferDestinysSelect").value = ""
         document.getElementById("transferOrigin").value = ""
         document.getElementById("transferAmount").value = ""
@@ -378,19 +402,19 @@ function transfers(idSender, idReciever, amount){
         fillItems(idUser)
         showModal("Éxito", "Transferencia exitosa")
         return exito
-    }else{
+    } else {
         showModal("Error", "No había suficiente dinero en la transferencia, por lo que no se pudo hacer")
     }
 }
 
-function buyOrSellDollars(){
+function buyOrSellDollars() {
     indexClient = findClient(idUser)
-    if(getBuyOrSell() == "venta"){
+    if (getBuyOrSell() == "venta") {
         clients[indexClient].buySellDollars(getDollarsAmount(), getIdPesosAccount(), getIdDollarsAccount())
         document.getElementById("dollarsAmount").value = ""
         fillItems(idUser)
         showModal("Exito", "Venta exitosa")
-    }else if(getBuyOrSell() == "compra"){
+    } else if (getBuyOrSell() == "compra") {
         clients[indexClient].buySellDollars(getDollarsAmount(), getIdDollarsAccount(), getIdPesosAccount())
         document.getElementById("dollarsAmount").value = ""
         fillItems(idUser)
@@ -398,10 +422,10 @@ function buyOrSellDollars(){
     }
 }
 
-function creditCardsInfo(id){
+function creditCardsInfo(id) {
     let creditCards = findCreditCards(id)
-    for (let i = 0; i < creditCards.length; i++){
-        if (getIdCreditCard() == creditCards[i].id){
+    for (let i = 0; i < creditCards.length; i++) {
+        if (getIdCreditCard() == creditCards[i].id) {
             document.getElementById("creditCardTitle").innerText = ""
             document.getElementById("creditCardHolder").innerText = ""
             document.getElementById("creditCardExpiry").innerText = ""
@@ -422,34 +446,34 @@ function creditCardsInfo(id){
     }
 }
 
-function payMinimumCreditCard(){
+function payMinimumCreditCard() {
     let creditCard = findCreditCardByIdCard(getIdCreditCard())
-    document.getElementById("customPaymentAmount").value = creditCard.balance*0.1
+    document.getElementById("customPaymentAmount").value = creditCard.balance * 0.1
 }
 
-function payTotalCreditCard(){
+function payTotalCreditCard() {
     let creditCard = findCreditCardByIdCard(getIdCreditCard())
     document.getElementById("customPaymentAmount").value = creditCard.balance
 }
 
-function payCreditCard(){
+function payCreditCard() {
     let creditCard = findCreditCardByIdCard(getIdCreditCard())
     let indexClient = findClient(idUser)
     let exito = creditCard.registerPayment(getAmountToPayCreditCard())
-    if (exito == 1){
+    if (exito == 1) {
         showModal("Éxito", "Se aceptó el pago y se pagó el total")
-        for (let i = 0; i < clients[indexClient].savingBanks.length; i++){
-            if (clients[indexClient].savingBanks[i].currency == "ARS"){
+        for (let i = 0; i < clients[indexClient].savingBanks.length; i++) {
+            if (clients[indexClient].savingBanks[i].currency == "ARS") {
                 clients[indexClient].savingBanks[i].extractBalance(getAmountToPayCreditCard())
             }
         }
         fillItems(idUser)
         document.getElementById("customPaymentAmount").value = ""
         document.getElementById("creditCardBalance").innerText = creditCard.balance
-    } else if (exito == 0){
+    } else if (exito == 0) {
         showModal("Éxito", "Se pagó parte del total")
-        for (let i = 0; i < clients[indexClient].savingBanks.length; i++){
-            if (clients[indexClient].savingBanks[i].currency == "ARS"){
+        for (let i = 0; i < clients[indexClient].savingBanks.length; i++) {
+            if (clients[indexClient].savingBanks[i].currency == "ARS") {
                 clients[indexClient].savingBanks[i].extractBalance(getAmountToPayCreditCard())
             }
         }
@@ -461,11 +485,11 @@ function payCreditCard(){
     }
 }
 
-function seeMovementsCreditCard(){
+function seeMovementsCreditCard() {
     let movimientos = findMovementsInSpecificCreditCard(getIdCreditCard())
     console.log(movimientos)
     let opcionesMovimientos = ""
-    for (let i = 0; i < movimientos.length; i++){
+    for (let i = 0; i < movimientos.length; i++) {
         opcionesMovimientos += `
         <tr>
             <td>${movimientos[i].amount}</td>
@@ -477,8 +501,63 @@ function seeMovementsCreditCard(){
     showModalMovements("Movimientos", opcionesMovimientos)
 }
 
-function addConsumption(thirdPartyName, amount, cuotes){
-    let card = 
+function debitOrCredit() {
+    let debitCard = findDebitCardByIdCard(getIdCard())
+    if (debitCard == undefined) {
+        document.getElementById("installmentsContainer").style.display = ''
+        return "credito"
+    } else {
+        document.getElementById("installmentsContainer").style.display = 'none'
+        return "debito"
+    }
+}
+
+function addConsumption() {
+    let typeOfCard = debitOrCredit()
+    let indexClient = findClient(idUser)
+    if (typeOfCard == "debito") {
+        for (let i = 0; i < clients[indexClient].savingBanks.length; i++) {
+            for (let j = 0; j < clients[indexClient].savingBanks[i].debitCards.length; j++) {
+                if (clients[indexClient].savingBanks[i].debitCards[j].id == getIdCard()) {
+                    if (clients[indexClient].savingBanks[i].extractBalance(getAmountRegisterMovement())) {
+                        console.log(clients[indexClient].savingBanks[i])
+                        clients[indexClient].savingBanks[i].debitCards[j].registerMovements(getThirdPartyName(), getAmountRegisterMovement())
+                        document.getElementById("storeNameInput").value = ""
+                        document.getElementById("expenseAmountInput").value = ""
+                        fillItems(idUser)
+                        showModal("Éxito", "Gasto Cargado")
+                    }else{
+                        showModal("Error", "No hay suficiente saldo en la cuenta bancaria para esta transacción")
+                    }
+
+                }
+            }
+        }
+    } else {
+        for (let i = 0; i < clients[indexClient].creditCards.length; i++) {
+            if (clients[indexClient].creditCards[i].id == getIdCard()) {
+                clients[indexClient].creditCards[i].registerMovements(getThirdPartyName(), getAmountRegisterMovement(), getCuotes())
+                showModal("Éxito", "Gasto Cargado")
+                document.getElementById("storeNameInput").value = ""
+                document.getElementById("expenseAmountInput").value = ""
+                document.getElementById("installmentsSelect").value = ""
+            }
+        }
+    }
+}
+
+function investment(){
+    let savingBanksId = getIdSavingBanks()
+    let indexClient = findClient(idUser)
+    for (let i = 0; i < clients[indexClient].savingBanks.length; i++){
+        if (clients[indexClient].savingBanks[i].id == savingBanksId){
+            let interest = document.querySelector('input[name="investmentFund"]:checked').value
+            clients[indexClient].savingBanks[i].addBalance(getAmountToInvest() * interest / 100)
+            showModal("Éxito en la inversión", "Se invirtió correctamente")
+            fillItems(idUser)
+            document.getElementById("investmentAmount").value = ""
+        }
+    }
 }
 document.getElementById("bankAccount").style.display = 'none'
 document.getElementById("menuHamburguesa").style.display = 'none'

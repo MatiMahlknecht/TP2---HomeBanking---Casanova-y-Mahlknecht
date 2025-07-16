@@ -366,7 +366,7 @@
             <!-- Selección de medio de pago -->
             <div class="mb-3">
                 <label for="paymentMethodSelect" class="form-label">Seleccionar medio de pago</label>
-                <select class="form-select" id="paymentMethodSelect">
+                <select class="form-select" id="paymentMethodSelect" onchange="debitOrCredit()">
                     <!-- Este select será llenado por los alumnos con tarjetas de débito y crédito -->
                 </select>
             </div>
@@ -399,7 +399,7 @@
             </div>
 
             <!-- Botón para registrar gasto -->
-            <button class="btn btn-danger" id="registerExpenseButton">Registrar gasto</button>
+            <button onclick="addConsumption()" class="btn btn-danger" id="registerExpenseButton">Registrar gasto</button>
         </section>
 
 
@@ -461,7 +461,7 @@
             </div>
 
             <!-- Botón de invertir -->
-            <button class="btn btn-primary" id="investButton">Invertir</button>
+            <button onclick = "investment()"class="btn btn-primary" id="investButton">Invertir</button>
         </section>
 
 

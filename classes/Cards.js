@@ -1,11 +1,10 @@
-let idCreditCard = 1
-let idDebitCard = 1
+let idCard = 1
 let numberCard = 1000000000000000 //Esta variable tambien se aplica para las credit cards
 
 class DebitCard {
     constructor(provider, securityNumber, nameUser) {
-        this.id = idDebitCard
-        idDebitCard++
+        this.id = idCard
+        idCard++
         this.number = numberCard;
         numberCard++
         this.provider = provider;
@@ -63,8 +62,8 @@ this.expireDate.setFullYear(this.expireDate.getFullYear() + 5)
 
 class CreditCard {
     constructor(provider, securityNumber, nameUser, closeDate, expireBalanceDate) {
-        this.id = idCreditCard;
-        idCreditCard++;
+        this.id = idCard;
+        idCard++;
         this.number = numberCard;
         numberCard++;
         this.provider = provider;
