@@ -31,6 +31,10 @@ function getIdDebitCard(){
     return document.getElementById("debitCardAccountSelect").value
 }
 
+function getIdCreditCard(){
+    return document.getElementById("creditCardSelect").value
+}
+
 function getIdTransferOrigin(){
     return document.getElementById("transferOrigin").value
 }
@@ -59,7 +63,11 @@ function getIdDollarsAccount(){
     return document.getElementById("dollarsAccount").value
 }
 
-function uncoverNumber(){
+function getAmountToPayCreditCard(){
+    return document.getElementById("customPaymentAmount").value
+}
+
+function uncoverNumberDebitCard(){
     if (document.getElementById("debitCardNumber").type == "password"){
         document.getElementById("debitCardNumber").type = 'text'
         document.getElementById("debitCardNumberIcon").classList.remove('bi-eye') 
@@ -71,7 +79,7 @@ function uncoverNumber(){
     }
 }
 
-function uncoverSecurityNumber(){
+function uncoverSecurityNumberDebitCard(){
     if (document.getElementById("debitCardCvv").type == "password"){
         document.getElementById("debitCardCvv").type = 'text'
         document.getElementById("debitCvvIcon").classList.remove('bi-eye') 
@@ -80,6 +88,30 @@ function uncoverSecurityNumber(){
         document.getElementById("debitCardCvv").type = 'password'
         document.getElementById("debitCvvIcon").classList.remove('bi-eye-slash') 
         document.getElementById("debitCvvIcon").classList.add('bi-eye') 
+    }
+}
+
+function uncoverNumberCreditCard(){
+    if (document.getElementById("cardNumber").type == "password"){
+        document.getElementById("cardNumber").type = 'text'
+        document.getElementById("cardNumberIcon").classList.remove('bi-eye') 
+        document.getElementById("cardNumberIcon").classList.add('bi-eye-slash') 
+    }else{
+        document.getElementById("cardNumber").type = 'password'
+        document.getElementById("cardNumberIcon").classList.remove('bi-eye-slash') 
+        document.getElementById("cardNumberIcon").classList.add('bi-eye') 
+    }
+}
+
+function uncoverSecurityNumberCreditCard(){
+    if (document.getElementById("cardCvv").type == "password"){
+        document.getElementById("cardCvv").type = 'text'
+        document.getElementById("cvvIcon").classList.remove('bi-eye') 
+        document.getElementById("cvvIcon").classList.add('bi-eye-slash') 
+    }else{
+        document.getElementById("cardCvv").type = 'password'
+        document.getElementById("cvvIcon").classList.remove('bi-eye-slash') 
+        document.getElementById("cvvIcon").classList.add('bi-eye') 
     }
 }
 
@@ -237,7 +269,6 @@ function fillItems(id) {
             `
             opcionesCuentasOrigen += `<option value = ${savingBanks[i].id}> Alias: ${savingBanks[i].alias}, Moneda: Pesos</option>`
             opcionesCuentasEnPesos += `<option value = ${savingBanks[i].id}> Alias: ${savingBanks[i].alias}</option>`
-            console.log(opcionesCuentasOrigen)
         } else {
             opcionesCuentas += `
                 <div class="col-md-6 col-lg-4 mb-4">
@@ -261,7 +292,7 @@ function fillItems(id) {
     }
     for (let i = 0; i < debitCards.length; i++) {
         opcionesDebitCards += `<option value = ${debitCards[i].id}> Número: ${debitCards[i].number}, Proveedor: ${debitCards[i].provider}</option>`
-        opcionesDebitCardsPago += `<option ${debitCards[i].id}> Tarjeta de débito, Número: ${debitCards[i].number}</option>`
+        opcionesDebitCardsPago += `<option value = ${debitCards[i].id}> Tarjeta de débito, Número: ${debitCards[i].number}</option>`
     }
     for (let i = 0; i < clients.length; i++) {
         for (let j = 0; j < clients[i].savingBanks.length; j++) {
@@ -273,8 +304,8 @@ function fillItems(id) {
         }
     }
     for (let i = 0; i < creditCards.length; i++) {
-        opcionesCreditCards += `<option ${creditCards[i].id}> Número: ${creditCards[i].number}, Proveedor: ${creditCards[i].provider} </option>`
-        opcionesCreditCardsPago += `<option ${creditCards[i].id}> Tarjeta de crédito, Número: ${creditCards[i].number}</option>`
+        opcionesCreditCards += `<option value = ${creditCards[i].id}> Número: ${creditCards[i].number}, Proveedor: ${creditCards[i].provider} </option>`
+        opcionesCreditCardsPago += `<option value = ${creditCards[i].id}> Tarjeta de crédito, Número: ${creditCards[i].number}</option>`
     }
     document.getElementById("rowAccounts").innerHTML = opcionesCuentas
     document.getElementById("debitCardAccountSelect").innerHTML = opcionesDebitCards
@@ -309,8 +340,8 @@ function debitCardsInfo(id){
             document.getElementById("debitCardTitle").innerText = ""
             document.getElementById("debitCardHolder").innerText = ""
             document.getElementById("debitCardExpiry").innerText = ""
-            document.getElementById("debitCardNumber").innerText = ""
-            document.getElementById("debitCardCvv").innerText = ""
+            document.getElementById("debitCardNumber").value = ""
+            document.getElementById("debitCardCvv").value = ""
             document.getElementById("debitCardTitle").innerText = debitCards[i].provider + " " + debitCards[i].id
             document.getElementById("debitCardHolder").innerText = debitCards[i].nameUser
             document.getElementById("debitCardExpiry").innerText = debitCards[i].expireDate
@@ -368,25 +399,86 @@ function buyOrSellDollars(){
 }
 
 function creditCardsInfo(id){
-    let debitCards = findDebitCards(id)
-    for (let i = 0; i < debitCards.length; i++){
-        if (getIdDebitCard() == debitCards[i].id){
-            document.getElementById("debitCardTitle").innerText = ""
-            document.getElementById("debitCardHolder").innerText = ""
-            document.getElementById("debitCardExpiry").innerText = ""
-            document.getElementById("debitCardNumber").innerText = ""
-            document.getElementById("debitCardCvv").innerText = ""
-            document.getElementById("debitCardTitle").innerText = debitCards[i].provider + " " + debitCards[i].id
-            document.getElementById("debitCardHolder").innerText = debitCards[i].nameUser
-            document.getElementById("debitCardExpiry").innerText = debitCards[i].expireDate
-            document.getElementById("debitCardNumber").value = debitCards[i].number
-            document.getElementById("debitCardCvv").value = debitCards[i].securityNumber
+    let creditCards = findCreditCards(id)
+    for (let i = 0; i < creditCards.length; i++){
+        if (getIdCreditCard() == creditCards[i].id){
+            document.getElementById("creditCardTitle").innerText = ""
+            document.getElementById("creditCardHolder").innerText = ""
+            document.getElementById("creditCardExpiry").innerText = ""
+            document.getElementById("creditCardClosingDate").innerText = ""
+            document.getElementById("creditCardBalance").innerText = ""
+            document.getElementById("creditCardBalanceExpiry").innerText = ""
+            document.getElementById("cardNumber").value = ""
+            document.getElementById("cardCvv").value = ""
+            document.getElementById("creditCardTitle").innerText = creditCards[i].provider + " " + creditCards[i].id
+            document.getElementById("creditCardHolder").innerText = creditCards[i].nameUser
+            document.getElementById("creditCardExpiry").innerText = creditCards[i].expireDate
+            document.getElementById("creditCardClosingDate").innerText = creditCards[i].closeDate
+            document.getElementById("creditCardBalance").innerText = creditCards[i].balance
+            document.getElementById("creditCardBalanceExpiry").innerText = creditCards[i].expireBalanceDate
+            document.getElementById("cardNumber").value = creditCards[i].number
+            document.getElementById("cardCvv").value = creditCards[i].securityNumber
         }
     }
 }
 
-function laPutaMadreQueLoPario(){
+function payMinimumCreditCard(){
+    let creditCard = findCreditCardByIdCard(getIdCreditCard())
+    document.getElementById("customPaymentAmount").value = creditCard.balance*0.1
+}
 
+function payTotalCreditCard(){
+    let creditCard = findCreditCardByIdCard(getIdCreditCard())
+    document.getElementById("customPaymentAmount").value = creditCard.balance
+}
+
+function payCreditCard(){
+    let creditCard = findCreditCardByIdCard(getIdCreditCard())
+    let indexClient = findClient(idUser)
+    let exito = creditCard.registerPayment(getAmountToPayCreditCard())
+    if (exito == 1){
+        showModal("Éxito", "Se aceptó el pago y se pagó el total")
+        for (let i = 0; i < clients[indexClient].savingBanks.length; i++){
+            if (clients[indexClient].savingBanks[i].currency == "ARS"){
+                clients[indexClient].savingBanks[i].extractBalance(getAmountToPayCreditCard())
+            }
+        }
+        fillItems(idUser)
+        document.getElementById("customPaymentAmount").value = ""
+        document.getElementById("creditCardBalance").innerText = creditCard.balance
+    } else if (exito == 0){
+        showModal("Éxito", "Se pagó parte del total")
+        for (let i = 0; i < clients[indexClient].savingBanks.length; i++){
+            if (clients[indexClient].savingBanks[i].currency == "ARS"){
+                clients[indexClient].savingBanks[i].extractBalance(getAmountToPayCreditCard())
+            }
+        }
+        fillItems(idUser)
+        document.getElementById("customPaymentAmount").value = ""
+        document.getElementById("creditCardBalance").innerText = creditCard.balance
+    } else {
+        showModal("Error", "La cantidad ingresada es menor al pago mínimo")
+    }
+}
+
+function seeMovementsCreditCard(){
+    let movimientos = findMovementsInSpecificCreditCard(getIdCreditCard())
+    console.log(movimientos)
+    let opcionesMovimientos = ""
+    for (let i = 0; i < movimientos.length; i++){
+        opcionesMovimientos += `
+        <tr>
+            <td>${movimientos[i].amount}</td>
+            <td>${movimientos[i].thirdPartyName}</td>
+            <td>${movimientos[i].date}</td>
+        </tr>
+        `
+    }
+    showModalMovements("Movimientos", opcionesMovimientos)
+}
+
+function addConsumption(thirdPartyName, amount, cuotes){
+    let card = 
 }
 document.getElementById("bankAccount").style.display = 'none'
 document.getElementById("menuHamburguesa").style.display = 'none'

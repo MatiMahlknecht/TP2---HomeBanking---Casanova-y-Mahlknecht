@@ -172,7 +172,7 @@
                         <label for="debitCardNumber" class="form-label">Número de tarjeta</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="debitCardNumber" readonly>
-                            <button class="btn btn-outline-secondary" type="button" onclick="uncoverNumber()"
+                            <button class="btn btn-outline-secondary" type="button" onclick="uncoverNumberDebitCard()"
                                 id="toggleDebitCardNumber">
                                 <i class="bi bi-eye" id="debitCardNumberIcon"></i>
                             </button>
@@ -184,7 +184,7 @@
                         <label for="debitCardCvv" class="form-label">Código de seguridad</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="debitCardCvv" readonly>
-                            <button class="btn btn-outline-secondary" type="button" onclick="uncoverSecurityNumber()"
+                            <button class="btn btn-outline-secondary" type="button" onclick="uncoverSecurityNumberDebitCard()"
                                 id="toggleDebitCvv">
                                 <i class="bi bi-eye" id="debitCvvIcon"></i>
                             </button>
@@ -299,7 +299,7 @@
             <!-- Selector de tarjeta -->
             <div class="mb-3">
                 <label for="creditCardSelect" class="form-label">Seleccionar tarjeta</label>
-                <select id="creditCardSelect" class="form-select">
+                <select id="creditCardSelect" class="form-select" onchange="creditCardsInfo(idUser)">
                     <!-- Opciones a generar dinámicamente -->
                 </select>
             </div>
@@ -319,8 +319,8 @@
                     <div class="mb-2">
                         <label for="cardNumber" class="form-label">Número de tarjeta</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="cardNumber" readonly>
-                            <button class="btn btn-outline-secondary" type="button" id="toggleCardNumber">
+                            <input type="password" class="form-control" id="cardNumber" readonly>
+                            <button class="btn btn-outline-secondary" type="button" onclick="uncoverNumberCreditCard()" id="toggleCardNumber">
                                 <i class="bi bi-eye" id="cardNumberIcon"></i>
                             </button>
                         </div>
@@ -331,7 +331,7 @@
                         <label for="cardCvv" class="form-label">Código de seguridad</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="cardCvv" readonly>
-                            <button class="btn btn-outline-secondary" type="button" id="toggleCvv">
+                            <button class="btn btn-outline-secondary" onclick="uncoverSecurityNumberCreditCard()" type="button" id="toggleCvv">
                                 <i class="bi bi-eye" id="cvvIcon"></i>
                             </button>
                         </div>
@@ -344,13 +344,16 @@
                 <div class="card-body">
                     <h5 class="card-title">Pagar tarjeta</h5>
                     <div class="mb-3">
-                        <button class="btn btn-outline-primary me-2" id="payMinimumBtn">Pago mínimo</button>
-                        <button class="btn btn-outline-success me-2" id="payTotalBtn">Pago total</button>
+                        <button class="btn btn-outline-primary me-2" id="payMinimumBtn" onclick="payMinimumCreditCard()">Pago mínimo</button>
+                        <button class="btn btn-outline-success me-2" id="payTotalBtn" onclick="payTotalCreditCard()">Pago total</button>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">$</span>
                         <input type="number" class="form-control" id="customPaymentAmount" placeholder="Monto">
-                        <button class="btn btn-outline-secondary" id="payCustomBtn">Pagar</button>
+                        <button class="btn btn-outline-secondary" onclick="payCreditCard()" id="payCustomBtn">Pagar</button>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-outline-primary btn-sm" onclick ="seeMovementsCreditCard()">Ver movimientos</button>
                     </div>
                 </div>
             </div>

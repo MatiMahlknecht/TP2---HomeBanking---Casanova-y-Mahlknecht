@@ -53,7 +53,7 @@ function findCreditCards(id) {
     let associatesCreditCards = []
     for (let i = 0; i < clients.length; i++) {
         for (let j = 0; j < clients[i].creditCards.length; j++) {
-            if (clients[i].creditCards[j].id == id) {
+            if (clients[i].id == id){
                 associatesCreditCards.push(clients[i].creditCards[j])
             }
         }

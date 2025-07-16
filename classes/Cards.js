@@ -136,3 +136,5 @@ clients[1].savingBanks[1].debitCards.push(new DebitCard("MasterCard", 775, "Juan
 clients[2].savingBanks[0].debitCards.push(new DebitCard("Visa", 501, "pe"));
 clients[3].savingBanks[0].debitCards.push(new DebitCard("MasterCard", 212, "ca"));
 clients[1].creditCards.push(new CreditCard("Visa", 888, "Juan Lucas Casanova"))
+clients[0].creditCards.push(new CreditCard("Visa", 999, "Matias Mahlknecht", new Date(), new Date()))
+clients[0].creditCards.push(new CreditCard("MasterCard", 111, "Santiago RicardiXD", new Date(), new Date()))
