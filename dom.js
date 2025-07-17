@@ -83,11 +83,11 @@ function getCuotes() {
     return document.getElementById("installmentsSelect").value
 }
 
-function getIdSavingBanks(){
-   return document.getElementById("investmentAccountSelect").value
+function getIdSavingBanks() {
+    return document.getElementById("investmentAccountSelect").value
 }
 
-function getAmountToInvest(){
+function getAmountToInvest() {
     return document.getElementById("investmentAmount").value
 }
 
@@ -526,7 +526,7 @@ function addConsumption() {
                         document.getElementById("expenseAmountInput").value = ""
                         fillItems(idUser)
                         showModal("Éxito", "Gasto Cargado")
-                    }else{
+                    } else {
                         showModal("Error", "No hay suficiente saldo en la cuenta bancaria para esta transacción")
                     }
 
@@ -537,6 +537,8 @@ function addConsumption() {
         for (let i = 0; i < clients[indexClient].creditCards.length; i++) {
             if (clients[indexClient].creditCards[i].id == getIdCard()) {
                 clients[indexClient].creditCards[i].registerMovements(getThirdPartyName(), getAmountRegisterMovement(), getCuotes())
+                let amount = parseInt(getAmountRegisterMovement())
+                fillItems(idUser)
                 showModal("Éxito", "Gasto Cargado")
                 document.getElementById("storeNameInput").value = ""
                 document.getElementById("expenseAmountInput").value = ""
@@ -546,16 +548,20 @@ function addConsumption() {
     }
 }
 
-function investment(){
+function investment() {
     let savingBanksId = getIdSavingBanks()
     let indexClient = findClient(idUser)
-    for (let i = 0; i < clients[indexClient].savingBanks.length; i++){
-        if (clients[indexClient].savingBanks[i].id == savingBanksId){
-            let interest = document.querySelector('input[name="investmentFund"]:checked').value
-            clients[indexClient].savingBanks[i].addBalance(getAmountToInvest() * interest / 100)
-            showModal("Éxito en la inversión", "Se invirtió correctamente")
-            fillItems(idUser)
-            document.getElementById("investmentAmount").value = ""
+    for (let i = 0; i < clients[indexClient].savingBanks.length; i++) {
+        if (clients[indexClient].savingBanks[i].id == savingBanksId) {
+            if (getAmountToInvest() <= clients[indexClient].savingBanks[i].balance) {
+                let interest = document.querySelector('input[name="investmentFund"]:checked').value
+                clients[indexClient].savingBanks[i].addBalance(getAmountToInvest() * interest / 100)
+                showModal("Éxito en la inversión", "Se invirtió correctamente")
+                fillItems(idUser)
+                document.getElementById("investmentAmount").value = ""
+            }else{
+                showModal("Error", "La cantidad de plata invertida es mayor a la que se tiene en la caja de ahorros seleccionada")
+            }
         }
     }
 }
